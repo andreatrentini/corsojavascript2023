@@ -4,19 +4,41 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
 <body>
     <h1>Dom edit 1</h1>
     <h2 id="messaggio"></h2>
     <button onclick="scriviMessaggio()">Saluta!</button>
-
+    <button onclick="cambiaMessaggio()">Cambia!</button>
+    <button onclick="aggiungiItem()">Aggiungi!</button>
+    <h2>Elenco:</h2>
+    <ul id="elenco">        
+    </ul>
     <script>
         var testoMessaggio = 'Hello world!';
+        var i = 1;
+        
         function scriviMessaggio() {
             // individuare il tag h2 nel quale inserire il messaggio
             let tagH2 = document.getElementById('messaggio');
             tagH2.innerText = testoMessaggio;
+        }
+
+        function cambiaMessaggio() {
+            // individuare il tag h2 nel quale inserire il messaggio
+            let tagH2 = document.getElementById('messaggio');
+            tagH2.className = 'rosso';
+        }
+
+        function aggiungiItem() {            
+            // individuare il tag ul al quale aggiungere i tag li
+            let tagUL = document.getElementById('elenco');
+            let item = document.createElement('li');
+            item.innerText = 'riga ' + i;
+            tagUL.appendChild(item);
+            i++;
         }
     </script>
 </body>
