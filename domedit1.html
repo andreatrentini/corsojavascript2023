@@ -13,12 +13,15 @@
     <button onclick="scriviMessaggio()">Saluta!</button>
     <button onclick="cambiaMessaggio()">Cambia!</button>
     <button onclick="aggiungiItem()">Aggiungi!</button>
+    <br>
+    <img id="lampadina" src="./images/spenta2.png" onclick="accendiLampadina()">
     <h2>Elenco:</h2>
     <ul id="elenco">        
     </ul>
     <script>
         var testoMessaggio = 'Hello world!';
         var i = 1;
+        var accesa = false;
         
         function scriviMessaggio() {
             // individuare il tag h2 nel quale inserire il messaggio
@@ -39,6 +42,17 @@
             item.innerText = 'riga ' + i;
             tagUL.appendChild(item);
             i++;
+        }
+
+        function accendiLampadina() {
+            let tagImg = document.getElementById('lampadina');
+            if (accesa) {
+                tagImg.src = './images/spenta2.png';
+            }
+            else {
+                tagImg.src = './images/accesa2.png';
+            }
+            accesa = !accesa;
         }
     </script>
 </body>
