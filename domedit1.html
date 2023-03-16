@@ -5,6 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./style.css">
+    <script>
+        var lampadinaAccesa = new Image();
+        lampadinaAccesa.src = './images/accesa2.png';
+        var lampadinaSpenta = new Image();
+        lampadinaSpenta.src = './images/spenta2.png';
+
+        // versione 2
+
+        var urlImmagini = ['accesa2.png', 'spenta2.png'];
+        var cartellaImmagini = './images/';
+        var images = [];
+
+        for (let i = 0; i < urlImmagini.length; i++) {            
+            let tmp = new Image();
+            tmp.src = cartellaImmagini+urlImmagini[i];
+            images.push(tmp);
+        }
+
+    </script>
     <title>Document</title>
 </head>
 <body>
@@ -47,10 +66,10 @@
         function accendiLampadina() {
             let tagImg = document.getElementById('lampadina');
             if (accesa) {
-                tagImg.src = './images/spenta2.png';
+                tagImg.src = lampadinaSpenta.src;
             }
             else {
-                tagImg.src = './images/accesa2.png';
+                tagImg.src = lampadinaAccesa.src;
             }
             accesa = !accesa;
         }
