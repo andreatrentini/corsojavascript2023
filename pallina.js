@@ -19,7 +19,7 @@ var pallina = {
         orizzontale: 1,
         verticale: 1
     },
-    immagine: pallinaHTML,
+    immagine: new Image(),
 
     sposta(limiti) {
         // controllo posizione
