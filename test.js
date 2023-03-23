@@ -6,3 +6,7 @@ function popola() {
         palline.push(i);
     }
 }
+
+function nuova() {
+    return false;
+}
