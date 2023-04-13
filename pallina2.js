@@ -7,8 +7,8 @@ class Size {
 
 class Position {
     constructor (limits) {
-        this.top = Math.floor(Math.random() * limits.innerHeight);
-        this.left = Math.floor(Math.random() * limits.innerWidth);
+        this.top = Math.floor(Math.random() * (limits.innerHeight - 20));
+        this.left = Math.floor(Math.random() * (limits.innerWidth - 20));
     }
 
     get topPX() {
@@ -29,7 +29,9 @@ class Ball {
     constructor(path, area) {
         this.image = new Image(this.size.width, this.size.height);
         this.image.src = path;        
-        this.image.style.position = 'absolute';  
+        this.image.style.position = 'absolute'; 
+        this.image.style.left = this.position.leftPX; 
+        this.image.style.top = this.position.topPX; 
         document.body.appendChild(this.image);              
     }
 
@@ -39,11 +41,11 @@ class Ball {
     
     move(limits) {
         // controllo posizione
-        if (this.position.left <= 0 || this.position.left >= limits.innerWidth - this.size.width) {
+        if (this.position.left <= 0 || this.position.left >= limits.innerWidth - this.size.width - 10) {
             this.shift.orizzontal = -1 * this.shift.orizzontal;
         }
 
-        if (this.position.top <= 0 || this.position.top >= limits.innerHeight - this.size.height) {
+        if (this.position.top <= 0 || this.position.top >= limits.innerHeight - this.size.height - 10) {
             this.shift.vertical *= -1;
         }
         this.position.left += this.shift.orizzontal;
@@ -70,7 +72,7 @@ class Balls {
 
     remove() {
         for (let i = 0; i < this.balls.length; i++) {
-            this.balls[i].remove();            
+            this.balls[i].remove();           
         }
     }
 }
@@ -96,13 +98,14 @@ function stop() {
     clearInterval(timer);
 }
 
-function clear() {
+function clearPage() {
+    console.log('ok');
     document.body.innerHTML = `<div id="commandArea"> 
     Numero di palline: <input type="number" id="nrBalls" value="10">
     <button onClick="generate()">Generate</button>
     <button onClick="start()">Start</button>
     <button onClick="stop()">Stop</button>
-    <button onClick="clear()">Clear</button>
+    <button onClick="clearPage()">Clear</button>
 </div> `;
     balls = new Balls('./images/ball.png', 0);        
 }
