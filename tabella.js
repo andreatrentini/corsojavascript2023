@@ -11,6 +11,7 @@ function getData() {
     })
 }
 
+// Restituisce una riga di una tabella HTML con i dati di un aeroporto ricevuto come parametro in ingresso 
 function createRow(airport) {
     let riga = document.createElement('tr');
     let cella = document.createElement('td');
@@ -31,12 +32,14 @@ function createRow(airport) {
     return riga;
 }
 
+// Restituisce una riga di una tabella HTML con l'intestazione 
 function createHeader() {
     let intestazione = document.createElement('tr');
     intestazione.innerHTML = '<th>ID</th><th>Code</th><th>Country code</th><th>Municipality</th><th>Name</th>';
     return intestazione;
 }
 
+// Restituisce l'intera tabella HTML con i dati di tutti gli aeroporti
 function createTable(airports) {
     let tabella = document.createElement('table');
     tabella.appendChild(createHeader());
@@ -46,4 +49,8 @@ function createTable(airports) {
     return tabella;
 }
 
+// Eseguo la funzione che:
+// - ottiene i dati dalla rete
+// - crea la tabella
+// - aggiunge la tabella alla pagina HTML
 getData();
