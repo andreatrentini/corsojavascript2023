@@ -3,7 +3,11 @@ function getData() {
     fetch('./airports.json')
     .then(dati => dati.json())
     .then(dati => {
-        console.log(dati);
+        // I dati sono già stati convertiti in formato javascript
+        // Creare la tabella ed inserirla nella pagina web
+
+        let principale = document.getElementById('principale');
+        principale.appendChild(createTable(dati));
     })
 }
 
