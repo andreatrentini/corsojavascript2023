@@ -1,14 +1,14 @@
-class Dimensione {    
-    constructor (larghezza, altezza) {
+class Dimensione {
+    constructor(larghezza, altezza) {
         this.larghezza = larghezza;
         this.altezza = altezza;
     }
 }
 
 class Posizione {
-    constructor (limiti) {
-        this.top = Math.floor(Math.random() * limiti.innerHeight);
-        this.left = Math.floor(Math.random() * limiti.innerWidth);
+    constructor(limiti) {
+        this.top = Math.floor(Math.random() * limiti.innerHeight - 20);
+        this.left = Math.floor(Math.random() * limiti.innerWidth - 20);
     }
 
     get topPX() {
@@ -21,8 +21,8 @@ class Posizione {
 }
 
 class Spostamento {
-    orizzontale = Math.random() < 0.5? 1 + Math.floor(Math.random() * 10): -1 * (1 + Math.floor(Math.random() * 10));
-    verticale = Math.random() < 0.5? 1 + Math.floor(Math.random() * 10): -1 * (1 + Math.floor(Math.random() * 10));
+    orizzontale = Math.random() < 0.5 ? 1 + Math.floor(Math.random() * 10) : -1 * (1 + Math.floor(Math.random() * 10));
+    verticale = Math.random() < 0.5 ? 1 + Math.floor(Math.random() * 10) : -1 * (1 + Math.floor(Math.random() * 10));
 
     /* constructor() {
         let velocita = Math.random() * 10 + 1;            
@@ -74,8 +74,49 @@ class Pallina {
     }
 }
 
-var pallina = new Pallina('./images/ball.png');
+class Palline {
+    palline = [];
+    inMovimento = false;
+    constructor(numero, urlImmagine) {
+        for (let i = 0; i < numero; i++) {
+            this.palline.push(new Pallina(urlImmagine));
+        }
+    }
+    sposta(limiti) {
+        this.palline.forEach(pallina => {
+            pallina.sposta(limiti);
+        });
+    }
+}
 
-setInterval(() => {
-    pallina.sposta(window);
-}, 15);
+var palline;
+var timer;
+
+function avvia() {
+    let numeroPalline = document.getElementById('inputNumeroPalline').value;
+    palline = new Palline(numeroPalline, './images/ball.png');
+
+    timer = setInterval(() => {
+        palline.sposta(window);
+    }, 15);
+    palline.inMovimento = true;
+}
+
+function fermaRiavvia() {
+    if (palline.inMovimento) {
+        clearInterval(timer);
+        document.getElementById('buttonFermaRiavvia').innerText = 'Riavvia';
+        palline.inMovimento = false;
+    }
+    else {
+        timer = setInterval(() => {
+            palline.sposta(window);
+        }, 15);
+        document.getElementById('buttonFermaRiavvia').innerText = 'Ferma';
+        palline.inMovimento = true;
+    }
+    
+    //Si potrebbe fare anche così
+    //palline.inMovimento = !palline.inMovimento;
+}
+
