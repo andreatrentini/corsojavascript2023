@@ -1,7 +1,7 @@
-function getDataFromSpotify() {
-    fetch('https://api.spotify.com/v1/search?q=artist%3Aimagine%20dragon&type=album',{
+function getDataFromSpotify(artistName) {
+    fetch('https://api.spotify.com/v1/search?q=artist%3A' + artistName + '&type=album',{
         headers: {
-            Authorization: 'Bearer ' + getTokenBearer(),
+            Authorization: 'Bearer ' + token_bearer,
         }
     })
     .then(risposta => risposta.json())
@@ -19,22 +19,39 @@ function getDataFromSpotify() {
     })
 }
 
-async function getTokenBearer() {
+function getTokenBearer() {
     let client_id = '12fb82f98a9e401c90ae1f30022a6d79';
     let client_secret = 'ef7866f187a74b42b171fab9d39016f5';
 
-    await fetch('https://accounts.spotify.com/api/token', {
+    fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
-        body: 'grant_type=client_credentials&client_id=12fb82f98a9e401c90ae1f30022a6d79&client_secret=ef7866f187a74b42b171fab9d39016f5'
+        body: 'grant_type=client_credentials&client_id=' + client_id + '&client_secret=' + client_secret
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data)
-        return data.acces_token;
-    })
+        token_bearer = data.access_token;
+        console.log(token_bearer);
+        let search = document.getElementById('search');
+        search.style = 'visibility: visible';
+    });    
 }
 
-getDataFromSpotify();
+function searchAlbum() {
+    let artist = document.getElementById('searchInput').value;
+    console.log(artist);
+    getDataFromSpotify(artist);
+}
+
+var token_bearer;
+
+getTokenBearer();
+
+setInterval(() => {
+    getTokenBearer();
+}, 3500000);
+
+
+//getDataFromSpotify();
